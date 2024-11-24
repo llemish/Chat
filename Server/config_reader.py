@@ -9,27 +9,32 @@ class ConfigReader:
         self._logging_level = 'DEBUG'
         self._max_user = 11
         self._max_message_length = 139
+        self._file_is_read = False
         self._read_file(path_to_file)
 
     def _read_file(self, path_to_file):
-        with open(path_to_file) as f:
-            for raw_line in f:
-                if raw_line[0] != '#':
-                    (key, value) = raw_line.split(':')
-                    if key == 'LOGGING_LEVEL':
-                        self._logging_level = value.strip()
-                    elif key == 'PORT':
-                        self._port = int(value)
-                    elif key == 'MAX_MESSAGE_LENGTH':
-                        # В силу ограниченного времени на написание приложения, со стороны клиента
-                        # не была реализована возможность получения сообщения состоящего из нескольких
-                        # пакетов, поэтому для избежания потери данных и некорректной работы,
-                        # максимальная длина сообщений искусственно ограничена значением 1024
-                        if int(value) > 1024:
-                            value = 1024
-                        self._max_message_length = int(value)
-                    elif key == 'MAX_USERS':
-                        self._max_user = int(value)
+        try:
+            with open(path_to_file) as f:
+                for raw_line in f:
+                    if raw_line[0] != '#':
+                        (key, value) = raw_line.split(':')
+                        if key == 'LOGGING_LEVEL':
+                            self._logging_level = value.strip()
+                        elif key == 'PORT':
+                            self._port = int(value)
+                        elif key == 'MAX_MESSAGE_LENGTH':
+                            # В силу ограниченного времени на написание приложения, со стороны клиента
+                            # не была реализована возможность получения сообщения состоящего из нескольких
+                            # пакетов, поэтому для избежания потери данных и некорректной работы,
+                            # максимальная длина сообщений искусственно ограничена значением 1024
+                            if int(value) > 1024:
+                                value = 1024
+                            self._max_message_length = int(value)
+                        elif key == 'MAX_USERS':
+                            self._max_user = int(value)
+            self._file_is_read = True
+        except FileNotFoundError:
+            self._file_is_read = False
 
     @property
     def port(self):
@@ -46,3 +51,7 @@ class ConfigReader:
     @property
     def max_message_length(self):
         return self._max_message_length
+
+    @property
+    def file_is_read(self):
+        return self._file_is_read

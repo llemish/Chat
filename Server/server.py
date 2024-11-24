@@ -25,6 +25,9 @@ class Server:
         logging.basicConfig(level=logg_level, filename='syslog.log', filemode='a',
                             format="%(asctime)s:%(module)s:%(levelname)s:%(message)s")
 
+        if not self._config.file_is_read:
+            logging.warning('Config file wasn\'t read. Use default values')
+
         self._users = dict()
         self._sel = selectors.DefaultSelector()
 

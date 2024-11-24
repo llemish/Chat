@@ -54,5 +54,5 @@ class Message:
                 self._target_user = data[2:].strip()
         else:
             self._target_user = data.split(':')[0].strip()
-            self._message = data.split(':')[1].strip()
+            self._message = data.split(':', 1)[1].strip()
 
