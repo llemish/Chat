@@ -32,7 +32,7 @@
 требующийся для корректной работы сервера. По умолчанию файл конфигурации _config_ находится в
 папке Server.
 ```commandline
-bash run_server.sh path_to_config
+bash run_server.sh config
 ```
 
 Альтернативным способом является запуск файла _server.py_ при помощи команды:
@@ -40,7 +40,7 @@ bash run_server.sh path_to_config
 python3 server.py path_to_config
 ```
 
-Логирование производитсяв файл _syslog.log_.
+Логирование производится в файл _syslog.log_.
 
 ## Запуск и работа с клиентом
 Запуск приложения клиента осуществляется при помощи bash-скрипта _client_start.sh_ находящегося в папке Client. 

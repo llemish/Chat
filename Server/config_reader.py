@@ -5,7 +5,7 @@ class ConfigReader:
 
     """
     def __init__(self, path_to_file):
-        self._port = 50001
+        self._port = 54321
         self._logging_level = 'DEBUG'
         self._max_user = 11
         self._max_message_length = 139
